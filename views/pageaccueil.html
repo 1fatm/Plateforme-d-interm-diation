@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil CNSCL</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .light-mode {
+            background-color: #f8f9fa;
+            color: #555555;
+        }
+
+        .dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        .hero-image {
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            position: relative;
+            color: white;
+            overflow: hidden;
+        }
+
+        .hero-image::after {
+            content: "";
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-text {
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+            z-index: 1;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .hero-text h1 {
+            font-size: 3em;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .hero-text p {
+            font-size: 1.5em;
+            color: #ffffff;
+        }
+
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background-color: #f8f9fa;
+        }
+
+        .navbar-nav .nav-item .nav-link {
+            color: #555555 !important;
+            font-size: 1.1em;
+        }
+
+        .navbar-nav .nav-item .nav-link.active,
+        .navbar-nav .nav-item .nav-link:hover {
+            color: #028237 !important;
+        }
+
+        .content-section {
+            padding: 60px 0;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-in-out;
+        }
+
+        .content-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .content-section h2 {
+            color: #028237;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .content-section p,
+        .content-section ul {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .content-section ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        .content-section .container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dark-mode .content-section .container {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+            margin: 40px auto;
+        }
+
+        .video-container iframe,
+        .video-container object,
+        .video-container embed {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        .nav-link {
+            padding-right: 10px;
+            font-size: 1.1em;
+            margin-left: 10px;
+        }
+
+        .btn-success {
+            background-color: #028237;
+            border-color: #028237;
+        }
+
+        .btn-success:hover {
+            background-color: #026f2d;
+            border-color: #026f2d;
+        }
+
+        .carousel-item img {
+            max-height: 100vh;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            transform: translateY(-50%);
+            transform: translateY(0);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .custom-caption {
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .custom-caption h5 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .custom-caption p {
+            font-size: 1.5em;
+            margin-bottom: 100px;
+        }
+        .light-mode .navbar {
+            background-color: white;
+            color: #555555;
+        }
+        
+        .dark-mode .navbar {
+            background-color: #121212;
+            color: #ffffff;
+        }
+        
+        
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <a class="navbar-brand" href="#">
+            <img src="../public/cnscl_mines_logo.jpg" alt="Logo CNSCL" height="70">CNSCL
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="lien_vers_facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="lien_vers_twitter" target="_blank"><i class="fab fa-twitter"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="lien_vers_linkedin" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="lien_vers_instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#presentation">Présentation</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#plateforme">Plateforme</a>
+                </li>
+             
+                <li class="nav-item">
+                    <a class="nav-link" href="#publications">Publications</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#medias">Médias</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#observatoire">Observatoire</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#emplois">Emplois et Stages</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#jcl">JCL</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="theme-toggle"><i id="theme-icon" class="fas fa-sun"></i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <section id="carouselSection" class="content-section">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="../public/profil.4451386a.png" class="d-block w-100 img-fluid" alt="Bienvenue sur la plateforme">
+                    <div class="carousel-caption d-none d-md-block text-center custom-caption">
+                        <h5>Bienvenue sur la plateforme</h5>
+                        <p>Comité National de Suivi du Contenu Local</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="../public/1715595098083.jpg" class="d-block w-100 img-fluid" alt="Image 2">
+                </div>
+                <div class="carousel-item">
+                    <img src="../public/1715769961789.jpg" class="d-block w-100 img-fluid" alt="Image 3">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Précédent</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Suivant</span>
+            </a>
+        </div>
+    </section>
+    
+    
+    
+
+    <section id="presentation" class="content-section">
+        <div class="container">
+            <h2 class="section-title">Présentation</h2>
+            <p>Le Comité National de Suivi du Contenu Local (CNSCL) élabore des lignes directrices à caractère obligatoire
+                relatives au contenu local notamment, et de manière non limitative, les emplois locaux, l’utilisation des
+                biens et services locaux, les capitaux locaux, le transfert de technologie et de savoir-faire.</p>
+            <h3>Ses Rôles et Missions</h3>
+            <ul>
+                <li>Coordonner l’élaboration du document stratégique du contenu local.</li>
+                <li>Superviser et veiller à la bonne mise en œuvre de la stratégie de développement du contenu local.</li>
+                <li>Faire le suivi et évaluation périodique de la mise en œuvre des programmes de promotion du contenu
+                    local.</li>
+                <li>Organiser des campagnes d’information et de sensibilisation sur le contenu local.</li>
+                <li>Appuyer les initiatives de promotion et de développement du contenu local.</li>
+                <li>Elaborer et proposer les mesures incitatives en faveur de la promotion du contenu local.</li>
+            </ul>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/PV2RRQLv5vo?si=qwpaD2SDOgNAssxI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section id="plateforme" class="content-section">
+        <div class="container">
+            <div class="row">
+              
+                <div class="col-md-8">
+                    <h2 class="section-title">Plateforme</h2>
+                    <p>La plateforme du CNSCL permet de connecter les acteurs de l'industrie minière, de partager des ressources et de promouvoir les initiatives locales. Explorez nos différentes sections pour en savoir plus.</p>
+                    <a class="btn btn-success" href="http://localhost/Plateforme_CNSCL/?page=connexion">Accéder à la plateforme</a>
+                </div>
+                <div class="col-md-4">
+                    <img src="../public/411185335_122123433974049265_1221522294336802252_n.jpg" alt="Description de l'image" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+
+    <section id="publications" class="content-section">
+        <div class="container">
+            <h2 class="section-title">Publications</h2>
+          
+    
+            <div class="row">
+            
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <img class="card-img-top" src="../public/429779447_122134864922049265_5372655147942008040_n.jpg" alt="Image de la publication">
+                       
+                      
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <img class="card-img-top" src="../public/429794808_122134864868049265_5053659801863881625_n.jpg" alt="Image de la publication">
+                        
+                      
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <img class="card-img-top" src="../public/im.jpg" alt="Image de la publication">
+                    </div>
+                </div>
+
+        </div>
+        <p>  La signature de la convention de partenariat entre l’Agence de Développement et d’Encadrement des Petites et Moyennes Entreprises (ADEPME) et le Secrétariat technique en charge des Mines du Comité national de Suivi du Contenu local (ST CNSCL/Mines) a eu lieu ce jeudi 29 Février 2024.
+            L’engagement fort de l’État du Sénégal à mettre en place une politique de contenu local vise à élaborer une stratégie efficace et ambitionne de renforcer la participation du secteur privé national sur toute la chaîne de valeur minière.</p>
+    </section>
+    
+
+    <section id="medias" class="content-section">
+        <div class="container">
+            <h2 class="section-title">Médias</h2>  
+          <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Présentation de la politique du contenu local par le ST-CNSCL-MINES au journal  19H | RTS1 - wolof</h5>
+
+                        </div>
+                        <iframe width="100%" height="200" src="https://www.youtube.com/embed/MrCW1dV7KQA?si=vHoQjZBb6kKFQWdE" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+    
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Partenariat entre (ST CNSCL /Mines)et (L'ADEPME) </h5>
+                            
+                        </div>
+                        <iframe width="100%" height="200" src="https://www.youtube.com/embed/3U3Yzz5xSz4?si=u1u62ps2P2xt2lQU" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+    
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Présentation de la plateforme électronique de mise en relation entre les acteurs du secteur minier</h5>
+                        </div>
+                        <iframe width="100%" height="200" src="https://www.youtube.com/embed/kqKySmxC5Ro?si=lUVuiap8jbLfqjRx" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <section id="observatoire" class="content-section">
+        <div class="container">
+            <h2 class="section-title">Observatoire</h2>
+            <p>L'Observatoire du Contenu Local est une initiative du CNSCL visant à surveiller et évaluer
+                l'application des politiques de contenu local. Il fournit des données et des analyses pour aider à
+                guider les décisions stratégiques.</p>
+            
+        </div>
+    </section>
+    <section id="emplois" class="content-section">
+        <div class="container">
+            <h2 class="section-title">Emplois et Stages</h2>
+            <p>Consultez les offres d'emploi et de stage disponibles au sein du CNSCL et de ses partenaires. Nous
+                encourageons la candidature des talents locaux pour renforcer notre impact sur l'industrie minière
+                nationale.</p>
+            
+        </div>
+    </section>
+
+    <section id="jcl" class="content-section">
+        <div class="container">
+            <h2 class="section-title">JCL</h2>
+            <p>Les Journées du Contenu Local (JCL) sont un événement annuel organisé par le CNSCL pour promouvoir le
+                dialogue et la collaboration entre les acteurs de l'industrie minière. Découvrez les temps forts et
+                les principales conclusions des éditions passées.</p>
+            
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2023 CNSCL. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggleButton = document.getElementById('theme-toggle');
+            const themeIcon = document.getElementById('theme-icon');
+            const body = document.body;
+            const navbar = document.querySelector('.navbar');
+        
+            toggleButton.addEventListener('click', function () {
+                body.classList.toggle('dark-mode');
+                if (body.classList.contains('dark-mode')) {
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                    navbar.classList.add('dark-mode');
+                    navbar.classList.remove('light-mode');
+                } else {
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                    navbar.classList.add('light-mode');
+                    navbar.classList.remove('dark-mode');
+                }
+            });
+        });
+        
+
+        window.addEventListener("scroll", function () {
+            const navbar = document.querySelector(".navbar");
+            if (window.scrollY > 50) {
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
+            }
+        });
+
+        window.addEventListener("load", function () {
+            const sections = document.querySelectorAll(".content-section");
+            const options = {
+                threshold: 0.5,
+            };
+
+            const observer = new IntersectionObserver(function (entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                    }
+                });
+            }, options);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

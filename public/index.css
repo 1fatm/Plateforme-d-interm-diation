@@ -1,0 +1,60 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0; /* Ajoute une couleur de fond légère */
+    padding: 20px; /* Ajoute un peu d'espace autour du contenu */
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 800px; /* Augmente la largeur maximale pour une meilleure lisibilité */
+    margin: 20px auto; /* Centre le formulaire avec un peu plus d'espace autour */
+    background-color: #ffffff; /* Ajoute un fond blanc au formulaire */
+    padding: 20px; /* Ajoute un peu de padding à l'intérieur du formulaire */
+    border-radius: 8px; /* Ajoute des coins arrondis */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ajoute une ombre légère pour un effet de profondeur */
+}
+
+.container label {
+    flex: 0 0 48%; /* Réduit légèrement l'espace entre les labels et les champs */
+    margin-bottom: 15px; /* Augmente légèrement l'espace entre chaque champ */
+}
+
+.container input, .container select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc; /* Ajoute une bordure légère */
+    border-radius: 4px; /* Ajoute des coins arrondis aux champs */
+    box-sizing: border-box; /* Inclut la bordure et le padding dans la largeur totale */
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px; /* Ajoute un peu d'espace au-dessus des boutons */
+}
+
+.actions input {
+    flex: 0 0 48%;
+    padding: 12px;
+    border: none;
+    background-color: #4CAF50; /* Couleur de fond verte pour le bouton Valider */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Ajoute une transition douce lors du survol */
+}
+
+.actions input:hover {
+    background-color: #45a049; /* Assombrit légèrement la couleur au survol */
+}
+
+.actions input[type="reset"] {
+    background-color: #f44336; 
+}
+
+.actions input[type="reset"]:hover {
+    background-color: #da190b; 
+}
